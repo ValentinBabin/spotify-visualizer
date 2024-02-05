@@ -1,0 +1,39 @@
+<app-navbar [user]="user"></app-navbar>
+
+<div *ngIf="audioList" class="player z-20 fixed inset-x-0 bottom-0 w-full">
+    <app-audio-player [audioList]=audioList [indexWanted]=indexOfTrackWanted></app-audio-player>
+</div>
+
+<div class="container page mx-auto mt-5">
+    <ng-container *ngIf="playlist">
+        <div class="header grid grid-cols-1 md:grid-cols-12 gap-5">
+            <div class="cover md:col-span-2 w-40 md:w-auto">
+                <img *ngIf="playlist.imageUrl" [src]="playlist.imageUrl" class="rounded-md"
+                    alt="{{ playlist.name }} | {{ playlist.description }}">
+                <img *ngIf="!playlist.imageUrl" class="bg-neutral-700 w-full rounded-md"
+                    src="assets/thumb_placeholder.jpg">
+            </div>
+            <div class="headlines md:col-span-10 flex flex-col justify-center items-start">
+                <h1 class="font-lato font-semibold text-h1Mobile md:text-h1 text-stone-100 text-left mt-2">
+                    {{ playlist.name }}
+                </h1>
+                <p class="font-lato font-semibold text-bodyMobile md:text-body text-stone-100">
+                    {{ playlist.description }}
+                </p>
+            </div>
+        </div>
+
+        <div class="content grid grid-cols-1">
+            <ul class="mt-5 border-t-2 border-neutral-700">
+                <li *ngFor="let track of playlist.tracks" class="border-b-2 border-neutral-700 py-5"
+                    (click)="switchToTrack(track)">
+                    <app-track-item *ngIf="track" [track]="track"></app-track-item>
+                </li>
+            </ul>
+        </div>
+    </ng-container>
+
+    <div class="footer-container">
+        <app-footer></app-footer>
+    </div>
+</div>

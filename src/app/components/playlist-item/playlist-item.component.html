@@ -1,0 +1,6 @@
+<div class="cursor-pointer" (click)="goToPlaylist()">
+    <img *ngIf="playlist.imageUrl" class="rounded-md" [src]="playlist.imageUrl" [alt]="playlist.name">
+    <img *ngIf="!playlist.imageUrl" class="bg-neutral-700 w-full rounded-md" src="assets/thumb_placeholder.jpg"
+        [alt]="playlist.name">
+    <h2 class="font-lato font-semibold text-base text-stone-100 text-center mt-2 hover:underline">{{playlist.name}}</h2>
+</div>

@@ -1,0 +1,16 @@
+<ng-container *ngIf="track">
+    <div class="grid grid-cols-3 sm:grid-cols-12 gap-5">
+        <div class="cover col-span-1 sm:col-span-1">
+            <img [src]="track.album.imageUrl" class="rounded-md" [alt]="track.album.name">
+        </div>
+        <div class="titles col-start-2 sm:col-start-2 col-end-4 sm:col-end-13 flex flex-col justify-center items-start">
+            <h2 class="font-lato font-semibold text-bodyMobile md:text-body text-stone-100 w-auto">{{track.name}}</h2>
+            <h3 class="font-lato font-semibold text-bodyMobile md:text-body text-stone-100 opacity-50 w-auto mt-1">
+                <span *ngFor="let artist of track.artists;let last = last;">
+                    <span *ngIf="last; else elseBlock">{{ artist.name }}</span>
+                    <ng-template #elseBlock>{{ artist.name }}, </ng-template>
+                </span>
+            </h3>
+        </div>
+    </div>
+</ng-container>

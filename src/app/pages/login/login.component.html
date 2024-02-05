@@ -1,0 +1,29 @@
+<div class="relative w-screen h-screen flex flex-col justify-center items-center">
+    <div class="login w-11/12 sm:w-8/12 lg:w-2/5 p-6 md:p-12 
+        flex flex-col justify-center items-center rounded-md shadow-md bg-neutral-700">
+
+        <h1 class="font-lato font-semibold text-h1Mobile md:text-h1 text-stone-100 mb-4">Hello ! 👋</h1>
+
+        <p class="font-lato font-semibold text-base text-left text-stone-100 mb-4">
+            Welcome to this webapp, find (in preview) directly your favourite sounds in your playlists with the link to
+            your Spotify account.
+            <br>
+            <br>
+            <i>*The visualizer is in progress*</i>
+            <br>
+            <br>
+            <i>*Of course no data and password are kept. The connection is done, via an interface specific to Spotify,
+                when you click on "Login".*</i>
+        </p>
+
+        <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
+            <div class="inline-flex rounded-md">
+                <div (click)="login()"
+                    class="cursor-pointer inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-neutral-800 bg-stone-100 hover:bg-stone-50">
+                    Login
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

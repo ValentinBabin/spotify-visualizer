@@ -1,0 +1,97 @@
+<audio controls #audioPlayer [src]="selectedAudio?.previewUrl"> </audio>
+
+<div class="wrapper p-6 bg-neutral-700" [ngStyle]="{ 'width': width, 'height': height }">
+
+    <!-- loader and error -->
+    <div class="loader" *ngIf="!isAudioLoaded && !isError"> Loading....</div>
+    <div class="error" *ngIf="isError">No audio Found !</div>
+
+    <div *ngIf="selectedAudio?.album.imageUrl && isAudioLoaded" class="cover h-full w-4/12 md:w-1/12">
+        <img [src]="selectedAudio?.album.imageUrl" class="rounded-md" alt="{{ selectedAudio?.album.name }}">
+    </div>
+
+    <div class="container" *ngIf="isAudioLoaded">
+        <div class="details">
+
+            <div class="slidecontainer">
+                <div class="time-line font-lato font-semibold text-sm text-stone-100 opacity-50 px-3">
+                    {{ currentAudioTime | timeConversion}}
+                </div>
+                <input type="range" max="{{totalAudioLength}}" value="{{currentAudioTime}}" (input)="seekAudio($event)"
+                    class="slider w-2/5" id="myRange">
+                <div class="time-line font-lato font-semibold text-sm text-stone-100 opacity-50 px-3">
+                    {{ totalAudioLength | timeConversion}}
+                </div>
+            </div>
+
+            <marquee *ngIf="scrollTitle" [ngStyle]="{ 'color' : audioTitleColor }">
+                <p class="title font-lato font-semibold text-bodyMobile md:text-body text-stone-100">
+                    {{selectedAudio?.name}}</p>
+            </marquee>
+            <p class="title font-lato font-semibold text-sm text-stone-100" [ngStyle]="{ 'color' : audioTitleColor }"
+                *ngIf="!scrollTitle">
+                {{selectedAudio?.name}}
+                <span class="font-lato font-semibold text-sm text-stone-100 opacity-50">- </span>
+                <span *ngFor="let artist of selectedAudio?.artists;let last = last;"
+                    class="font-lato font-semibold text-sm text-stone-100 opacity-50">
+                    <span *ngIf="last; else elseBlock">{{ artist.name }}</span>
+                    <ng-template #elseBlock>{{ artist.name }}, </ng-template>
+                </span>
+            </p>
+        </div>
+
+        <div class="controls">
+
+            <!-- repeat button starts -->
+            <!-- not active -->
+            <fa-icon [icon]="faRandom" *ngIf="repeat && !isRepeat" (click)="repeatAudio()"
+                [ngStyle]="{ 'fill' : repeatButtonColor }" class="text-neutral-800"></fa-icon>
+            <!-- active -->
+            <fa-icon [icon]="faRandom" *ngIf="repeat && isRepeat" (click)="repeatAudio()"
+                [ngStyle]="{ 'fill' : activeRepeatButtonColor }" class="text-green-300"></fa-icon>
+            <!-- repeat active ends -->
+
+            <!-- previous button starts -->
+            <fa-icon [icon]="faStepBackward" (click)="previousAudio()" [ngStyle]="{ 'fill' : previousButtonColor }"
+                class="text-neutral-800">
+            </fa-icon>
+            <!-- previous button ends -->
+
+            <!-- play button starts -->
+            <fa-icon [icon]="faPlay" (click)="play()" *ngIf="!isAudioPlaying" [ngStyle]="{ 'fill' : playButtonColor }"
+                class="text-neutral-800">
+            </fa-icon>
+            <!-- play button ends -->
+
+            <!-- pause button starts -->
+            <fa-icon [icon]="faPause" (click)="pause()" *ngIf="isAudioPlaying" [ngStyle]="{ 'fill' : pauseButtonColor }"
+                class="text-neutral-800"></fa-icon>
+            <!-- pause button ends -->
+
+            <!-- next button starts -->
+            <fa-icon [icon]="faStepForward" (click)="nextAudio()" [ngStyle]="{ 'fill' : nextButtonColor }"
+                class="text-neutral-800"></fa-icon>
+            <!-- next button ends -->
+
+            <!-- volume button starts -->
+            <div class="volume-container">
+                <!-- with volume -->
+                <fa-icon [icon]="faVolumeUp" id="volume" *ngIf="!isMute" (click)="muteAudio()"
+                    [ngStyle]="{ 'fill' : pauseButtonColor }" class="text-neutral-800"></fa-icon>
+
+                <!-- mute -->
+                <fa-icon [icon]="faVolumeMute" *ngIf="isMute" (click)="muteAudio()"
+                    [ngStyle]="{ 'fill' : muteButtonColor }" class="text-neutral-800"></fa-icon>
+
+                <!-- volume button ends -->
+                <div class="volume-control">
+                    <input type="range" max="100" value="{{audioVolume}}" (click)="$event.stopPropagation();"
+                        (input)="volumeChange($event)" [ngStyle]="{ 'background': volumeSliderColor }" class="slider"
+                        id="volumeRange">
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="bg-neutral-700">
+    <nav class="container mx-auto py-5 navbar grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="flex justify-center md:justify-start items-center">
+            <a [routerLink]="['/home']">
+                <div class="rounded-lg bg-stone-100 home-btn"></div>
+            </a>
+        </div>
+        <div class="hidden md:block"></div>
+        <div class="hidden md:block"></div>
+        <ng-container *ngIf="user">
+            <div class="relative w-full">
+                <div class="wrapper-user h-full md:grid md:grid-cols-3 md:gap-4 mt-4 md:mt-0">
+                    <h1
+                        class="col-span-2 mb-2 md:mb-0 flex justify-center md:justify-end items-center font-lato font-semibold text-base text-stone-100">
+                        {{user.displayName}}
+                    </h1>
+                    <div class="flex justify-center items-center">
+                        <img class="rounded-full" [src]="user.imageUrl" alt="">
+                    </div>
+                </div>
+                <div class="dropdown w-full md:w-1/2 absolute left-0 md:left-1/2 p-3 bg-neutral-700">
+                    <div (click)="logout()"
+                        class="flex justify-center md:justify-start items-center font-lato font-semibold text-base text-stone-100 cursor-pointer">
+                        Logout
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!user">
+            <div class="wrapper-user grid grid-cols-1">
+                <div class="col-span-2 flex justify-end items-center font-lato font-semibold text-base text-stone-100"
+                    (click)="login()">
+                    Se connecter
+                </div>
+            </div>
+        </ng-container>
+    </nav>
+</div>

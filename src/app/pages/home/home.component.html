@@ -1,0 +1,15 @@
+<app-navbar [user]="user"></app-navbar>
+
+<div class="container mx-auto pb-10">
+    <app-playlists-list [playlists]="user.playlists"></app-playlists-list>
+</div>
+
+<!-- <app-visualizer></app-visualizer> -->
+<!-- <app-audio-player [track]="currentTrack" (trackIsResumed)="trackIsResume()" (trackIsPaused)="trackPauseAction()"
+    (trackIsFinished)="trackFinishAction()" (switchTrack)="switchTrackAction($event)"></app-audio-player> -->
+<!-- <app-audio-player [audioList]=audioList></app-audio-player> -->
+<!-- <ang-music-player [audioList]=audioList width="100%" backgroundColor="#333"></ang-music-player> -->
+
+<div class="container mx-auto">
+    <app-footer></app-footer>
+</div>
